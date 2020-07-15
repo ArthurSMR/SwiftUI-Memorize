@@ -10,18 +10,21 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @ObservedObject var viewModel: MemoryGameViewModel
     
     var body: some View {
-                
-        Grid(viewModel.cards) { card in
-            CardView(card: card).onTapGesture {
-                self.viewModel.choose(card: card)
-            } // CardView
-            .padding(5)
-        } // Grid
-        .padding()
-        .foregroundColor(.orange)
+        VStack(alignment: .trailing) {
+            Spacer()
+            Text("Pontuação: 0")
+            Grid(viewModel.cards) { card in
+                CardView(card: card).onTapGesture {
+                    self.viewModel.choose(card: card)
+                } // CardView
+                    .padding(5)
+            } // Grid
+            .foregroundColor(.orange)
+            .navigationBarTitle(Text(viewModel.chosenTheme.rawValue), displayMode: .inline)
+        } // VStack
     }
 }
 
@@ -45,7 +48,9 @@ struct CardView: View {
                     .stroke(lineWidth: edgeLineWidth)
                 Text(card.content)
             } else {
-                RoundedRectangle(cornerRadius: self.cornerRadius).fill()
+                if !card.isMatched {
+                    RoundedRectangle(cornerRadius: self.cornerRadius).fill()
+                }
             }
         } // ZStack
             .font(Font.system(size: fontSize(for: size)))
@@ -62,6 +67,6 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+        EmojiMemoryGameView(viewModel: MemoryGameViewModel(chosenTheme: .food))
     }
 }
