@@ -22,7 +22,7 @@ struct EmojiMemoryGameView: View {
                 } // CardView
                     .padding(5)
             } // Grid
-            .foregroundColor(.orange)
+                .foregroundColor(viewModel.theme.color)
             .navigationBarTitle(Text(viewModel.chosenTheme.rawValue), displayMode: .inline)
         } // VStack
     }

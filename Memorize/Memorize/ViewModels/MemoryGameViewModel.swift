@@ -15,7 +15,7 @@ class MemoryGameViewModel: ObservableObject {
     
     static func createGame(with theme: Themes) -> MemoryGame<String> {
         
-        let theme = ThemesMock<String>.getContent(with: theme)
+        let theme = ThemesMock<String>.getContent(for: theme)
         
         return MemoryGame<String>(numberOfPairsOfCards: 5, theme: theme) { (index) in
             theme.content[index]
@@ -42,11 +42,6 @@ class MemoryGameViewModel: ObservableObject {
     func choose(card: MemoryGame<String>.Card) {
         memoryGameViewModel.choose(card: card)
     }
-    
-//    func sadasd() -> some View {
-//        Text("sergio")
-//    }
-    
 }
 
 struct FoodMemoryGame_Previews: PreviewProvider {

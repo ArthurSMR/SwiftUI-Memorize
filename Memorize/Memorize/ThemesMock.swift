@@ -6,30 +6,37 @@
 //  Copyright © 2020 Arthur Rodrigues. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 class ThemesMock<CardContent> where CardContent: Equatable {
     
-    static func getContent(with theme: Themes) -> Theme<String> {
+    static func getContent(for theme: Themes) -> Theme<String> {
         
         var emojis: [String]
-        var themeString: Theme<String>
+        var themeContent: Theme<String>
+        var color: Color
         
         switch theme {
         case .food:
             emojis = ["🍟", "🍭", "🧀", "🍖", "🍕"]
+            color = .red
         case .halloween:
             emojis = ["👻", "🎃", "🕷", "🧙🏽‍♂️", "🧟‍♂️"]
+            color = .orange
         case .faces:
             emojis = ["😄", "😇", "😈", "🥵", "🥰"]
+            color = .blue
         case .animals:
             emojis = ["🐖", "🐸", "🦍", "🦕", "🦒"]
+            color = .green
         case .flags:
             emojis = ["🇧🇷", "🇺🇸", "🇪🇸", "🇫🇷", "🇦🇷"]
+            color = .gray
         case .objects:
             emojis = ["✏️", "✒️", "📏", "🔧", "📎"]
+            color = .purple
         }
-        themeString = Theme<String>(name: theme.rawValue, content: emojis)
-        return themeString
+        themeContent = Theme<String>(name: theme.rawValue, content: emojis, color: color)
+        return themeContent
     }
 }
