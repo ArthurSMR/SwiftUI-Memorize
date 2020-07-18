@@ -13,19 +13,19 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: MemoryGameViewModel
     
     var body: some View {
-        VStack(alignment: .trailing) {
+        VStack {
             Spacer()
-            Text("Pontuação: 0")
+            Text("Pontuação: \(viewModel.score)")
             Grid(viewModel.cards) { card in
                 CardView(card: card).onTapGesture {
                     self.viewModel.choose(card: card)
                 } // CardView
-                    .padding(5)
+                .padding(5)
             } // Grid
-                .foregroundColor(viewModel.theme.color)
+            .foregroundColor(viewModel.theme.color)
             .navigationBarTitle(Text(viewModel.chosenTheme.rawValue), displayMode: .inline)
         } // VStack
-    }
+    } // NavigationView
 }
 
 struct CardView: View {

@@ -15,4 +15,11 @@ enum Themes: String, CaseIterable {
     case animals = "🐖 Animais"
     case flags = "🇧🇷 Bandeiras"
     case objects = "✏️ Objetos"
+    
+    static func random() -> Themes {
+        
+        let allCases = Themes.allCases
+        let randomElement = Int.random(in: 0..<allCases.count)
+        return allCases[randomElement]
+    }
 }

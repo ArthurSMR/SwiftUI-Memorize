@@ -12,10 +12,12 @@ class Theme<CardContent> where CardContent: Equatable {
     var name: String
     var content: [CardContent]
     var color: Color
+    var numberOfPairsOfCards: Int
     
-    init(name: String, content: [CardContent], color: Color) {
+    init(name: String, content: [CardContent], color: Color, numberOfPairsOfCards: Int) {
         self.name = name
         self.content = content
         self.color = color
+        self.numberOfPairsOfCards = numberOfPairsOfCards
     }
 }

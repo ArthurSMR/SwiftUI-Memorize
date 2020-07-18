@@ -17,7 +17,7 @@ class MemoryGameViewModel: ObservableObject {
         
         let theme = ThemesMock<String>.getContent(for: theme)
         
-        return MemoryGame<String>(numberOfPairsOfCards: 5, theme: theme) { (index) in
+        return MemoryGame<String>(numberOfPairsOfCards: theme.numberOfPairsOfCards, theme: theme) { (index) in
             theme.content[index]
         }
     }
@@ -35,6 +35,10 @@ class MemoryGameViewModel: ObservableObject {
     
     var theme: Theme<String> {
         memoryGameViewModel.theme
+    }
+    
+    var score: Int {
+        memoryGameViewModel.score
     }
     
     // MARK: - Intents

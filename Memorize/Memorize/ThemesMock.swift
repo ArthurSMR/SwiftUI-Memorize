@@ -16,6 +16,7 @@ class ThemesMock<CardContent> where CardContent: Equatable {
         var themeContent: Theme<String>
         var color: Color
         
+        
         switch theme {
         case .food:
             emojis = ["🍟", "🍭", "🧀", "🍖", "🍕"]
@@ -36,7 +37,10 @@ class ThemesMock<CardContent> where CardContent: Equatable {
             emojis = ["✏️", "✒️", "📏", "🔧", "📎"]
             color = .purple
         }
-        themeContent = Theme<String>(name: theme.rawValue, content: emojis, color: color)
+        
+        let numberOfPairsOfCards: Int = Int.random(in: 2...emojis.count)
+        
+        themeContent = Theme<String>(name: theme.rawValue, content: emojis, color: color, numberOfPairsOfCards: numberOfPairsOfCards)
         return themeContent
     }
 }

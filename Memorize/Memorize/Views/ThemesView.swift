@@ -8,20 +8,65 @@
 
 import SwiftUI
 
+//struct ThemesView: View {
+//
+//    var body: some View {
+//        NavigationView {
+//            VStack {
+//                List {
+//                    ForEach(Array(Themes.allCases.enumerated()), id: \.element) { theme in
+//                        NavigationLink(destination: EmojiMemoryGameView(viewModel: MemoryGameViewModel(chosenTheme: theme.element))) {
+//                            ThemeCell(theme: theme.element)
+//                        }
+//                    } // ForEach
+//                } // List
+//                .listStyle(GroupedListStyle())
+//                .navigationBarTitle("Temas", displayMode: .automatic)
+//            } // VStack
+//        } // NavigationView
+//    }
+//}
+
 struct ThemesView: View {
-    
+
     var body: some View {
         NavigationView {
-            List {
-                ForEach(Array(Themes.allCases.enumerated()), id: \.element) { theme in
-                    NavigationLink(destination: EmojiMemoryGameView(viewModel: MemoryGameViewModel(chosenTheme: theme.element))) {
-                        ThemeCell(theme: theme.element)
+            VStack {
+                List {
+                    ForEach(Array(Themes.allCases.enumerated()), id: \.element) { theme in
+                        NavigationLink(destination: EmojiMemoryGameView(viewModel: MemoryGameViewModel(chosenTheme: theme.element))) {
+                            ThemeCell(theme: theme.element)
+                        }
+                    } // ForEach
+                    Section {
+                        BottomButton()
                     }
-                } // ForEach
-            } // List
+                } // List
                 .listStyle(GroupedListStyle())
                 .navigationBarTitle("Temas", displayMode: .automatic)
+                //BottomButton()
+            } // VStack
         } // NavigationView
+    }
+}
+
+struct BottomButton: View {
+    
+    @State var randomTheme = Themes.random()
+    @State var themeChanged = false
+
+    var body: some View {
+        NavigationLink(destination: EmojiMemoryGameView(viewModel: MemoryGameViewModel(chosenTheme: randomTheme)), isActive: $themeChanged) {
+            Text("Jogo aleatório")
+                .onTapGesture {
+                    self.changeTheme()
+            }
+        } // NavigationLink
+    }
+    
+    func changeTheme() {
+        self.randomTheme = Themes.random()
+        themeChanged.toggle()
     }
 }
 
