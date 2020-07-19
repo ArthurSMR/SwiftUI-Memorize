@@ -20,11 +20,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             for index in cards.indices {
                 cards[index].isFaceUp = index == newValue
             }
-            //            cards = cards.enumerated().map { (elementEnumerated) -> Card in
-            //                var element = elementEnumerated.element
-            //                element.isFaceUp = elementEnumerated.offset == newValue
-            //                return element
-            //            }
         }
     }
     
