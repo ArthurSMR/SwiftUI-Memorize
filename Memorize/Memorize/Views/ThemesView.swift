@@ -35,7 +35,7 @@ struct RandomGameCell: View {
     
     var body: some View {
         NavigationLink(destination: EmojiMemoryGameView(viewModel: MemoryGameViewModel(chosenTheme: randomTheme)), isActive: $themeChanged) {
-            Text("Jogo aleatório")
+            Text("🔀 Jogo aleatório")
                 .onTapGesture {
                     self.changeTheme()
             }

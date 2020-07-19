@@ -12,6 +12,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     var cards: [Card]
     var theme: Theme<CardContent>
     var score = 0
+    var seenCards: [Card] = []
     
     var indexOfOneAndOnlyFaceUpCard: Int? {
         get { cards.indices.filter { cards[$0].isFaceUp }.only }
@@ -19,16 +20,16 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             for index in cards.indices {
                 cards[index].isFaceUp = index == newValue
             }
-//            cards = cards.enumerated().map { (elementEnumerated) -> Card in
-//                var element = elementEnumerated.element
-//                element.isFaceUp = elementEnumerated.offset == newValue
-//                return element
-//            }
+            //            cards = cards.enumerated().map { (elementEnumerated) -> Card in
+            //                var element = elementEnumerated.element
+            //                element.isFaceUp = elementEnumerated.offset == newValue
+            //                return element
+            //            }
         }
     }
     
     mutating func choose(card: Card) {
-        print("card chosen \(card)")
+        
         if let chosenIndex = cards.firstIndex(matching: card),
             !cards[chosenIndex].isFaceUp,
             !cards[chosenIndex].isMatched {
@@ -39,11 +40,28 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                     cards[potentialMatchIndex].isMatched = true
                     self.score += 2
                 } else {
-                    self.score -= 1
+                    let mismatchCards = [cards[chosenIndex], cards[potentialMatchIndex]]
+                    checkSeen(mismatchCards: mismatchCards)
                 }
                 self.cards[chosenIndex].isFaceUp = true
             } else {
                 indexOfOneAndOnlyFaceUpCard = chosenIndex
+            }
+        }
+    }
+    
+    /// This method is to check if the mismatch cards and calculate if you will lose 1 or 2 points
+    /// - Parameter mismatchCards: potential match card and the first chosen card
+    mutating func checkSeen(mismatchCards: [Card]) {
+        
+        for card in mismatchCards {
+            
+            let containsCard = seenCards.contains { $0.id == card.id }
+            
+            if containsCard {
+                self.score -= 1
+            } else {
+                self.seenCards.append(card)
             }
         }
     }
