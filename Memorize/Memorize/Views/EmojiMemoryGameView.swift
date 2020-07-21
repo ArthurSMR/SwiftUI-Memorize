@@ -18,7 +18,9 @@ struct EmojiMemoryGameView: View {
             Text("Pontuação: \(viewModel.score)")
             Grid(viewModel.cards) { card in
                 CardView(card: card).onTapGesture {
-                    self.viewModel.choose(card: card)
+                    withAnimation(.linear(duration: 0.6)) {
+                        self.viewModel.choose(card: card)
+                    }
                 } // CardView
                     .padding(5)
             } // Grid
@@ -40,7 +42,9 @@ struct ResetButton: View {
     }
     
     func restartGame() {
-        self.viewModel.restart(with: viewModel.chosenTheme)
+        withAnimation(.easeInOut) {
+            self.viewModel.restart(with: viewModel.chosenTheme)
+        }
     }
 }
 
@@ -66,8 +70,11 @@ struct CardView: View {
                     .opacity(0.4)
                 Text(card.content)
                     .font(Font.system(size: fontSize(for: size)))
+                    .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
+                    .animation(card.isMatched ? Animation.linear.repeatForever(autoreverses: false) : .default)
             }
             .cardify(isFaceUp: card.isFaceUp)
+            .transition(AnyTransition.scale)
         }
     }
     
