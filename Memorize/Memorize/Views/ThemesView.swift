@@ -22,7 +22,7 @@ struct ThemesView: View {
                     RandomGameCell()
                 }
             } // List
-            .listStyle(GroupedListStyle())
+                .listStyle(GroupedListStyle())
             .navigationBarTitle("Temas", displayMode: .automatic)
         } // NavigationView
     }

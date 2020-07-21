@@ -46,6 +46,10 @@ class MemoryGameViewModel: ObservableObject {
     func choose(card: MemoryGame<String>.Card) {
         memoryGameViewModel.choose(card: card)
     }
+    
+    func restart(with theme: Themes) {
+        self.memoryGameViewModel = MemoryGameViewModel.createGame(with: theme)
+    }
 }
 
 struct FoodMemoryGame_Previews: PreviewProvider {
